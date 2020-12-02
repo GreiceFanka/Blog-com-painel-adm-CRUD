@@ -18,22 +18,27 @@
         </thead>
         <tbody>
             <% articles.forEach(article =>{ %>
-                <td><%=article.id%></td>
-                <td><%=article.title%></td>
-                <td><%=article.slug%></td>
-                <td><%=article.category.title%></td>
-                <td>Ações</td>
+                <tr>
+                    <td><%=article.id%></td>
+                    <td><%=article.title%></td>
+                    <td><%=article.slug%></td>
+                    <td><%=article.category.title%></td>
+                    <td> 
+                        <form method="POST" action="/articles/delete" style="display: inline;" onsubmit="confirmDelete(event, this)">
+                            <input type="hidden" name="id" value="<%= article.id %>">
+                            <button class="btn btn-danger">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
             <% }) %>
-         
-           
-        </tbody>
+         </tbody>
     </table>
 </div>
 <%- include('../../partials/footer.ejs');%>
 <script>
     function confirmDelete(event, form){
         event.preventDefault();
-        let decision = confirm("Você quer deletar esta categoria?");
+        let decision = confirm("Você quer deletar este artigo?");
         if(decision){
             form.submit();
         }
